@@ -14,7 +14,7 @@ mongoose.connect("mongodb+srv://dbUser:admin@cluster0.vuv4i.mongodb.net/<dbname>
 })
 
 app.use((req, res, next) => {
-    req.io = io
+    req.io = io  
     next()
 })
 
@@ -24,7 +24,4 @@ app.use("/files", express.static(path.resolve(__dirname, "..", "uploads", "resiz
 
 app.use(require('./routes'))
 
-server.listen(3333)
-
-
-
+server.listen(8080)
