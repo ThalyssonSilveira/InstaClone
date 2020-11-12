@@ -9,7 +9,8 @@ const server = require("http").Server(app)
 const io = require("socket.io")(server)
 
 mongoose.connect("mongodb+srv://dbUser:admin@cluster0.vuv4i.mongodb.net/<dbname>?retryWrites=true&w=majority", {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
 })
 
 app.use((req, res, next) => {

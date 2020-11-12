@@ -3,7 +3,6 @@ const sharp = require("sharp")
 const path = require("path")
 const fs = require("fs")
 
-
 module.exports = {
     
     async index(req, res ){
@@ -14,14 +13,14 @@ module.exports = {
     async store(req, res){
 
         const { author, place, description, hashtag } = req.body
-        const { filename: image } = req.file
+        const { filename: image } = req.file        
 
-         const [name, ext ] = image.split(".")
+         const [name] = image.split(".")
          const filename = `${name}.jpg`
 
         await sharp(req.file.path).resize(500).jpeg({quality: 70}).toFile(path.resolve(req.file.destination, "resized", filename))
 
-        fs.unlinkSync(req.path.file)
+        fs.unlinkSync(req.file.path)
 
         const post = await Post.create({
             author,
@@ -31,7 +30,7 @@ module.exports = {
             image: filename
         })
 
-        req.io.emit("post", post)
+        req.io.emit('post', post)
 
         return res.json(post)
     }
